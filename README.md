@@ -1,3 +1,19 @@
+🚧 Project Status
+⚠️ This is a free, preview version of the Portfolio Analytic project.
+It includes the core functionality for tracking visitors, page views, and events.
+
+💼 Full Version Available
+The complete version includes:
+A polished dashboard with charts and filters
+Real-time analytics and heatmaps
+Custom event tracking from frontend (JS snippet)
+Admin UI for insights & export
+Full deployment guide and extended documentation
+📦 Available for purchase on:
+🧰 Upwork – Hire me for the full solution
+🛠️ Khamsat – Buy the full version
+
+
 # 📈 Portfolio Analytic – Web Analytics Dashboard
 
 **Portfolio Analytic** is a Django-based web analytics dashboard that tracks and visualizes visitor interactions across your website. It records session data, page views, click events, user devices, locations, and more — giving you actionable insight into how users behave on your site.
