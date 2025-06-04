@@ -68,12 +68,9 @@ event_type, element_id, element_text, page_url, metadata
 
 ## 📸 Screenshots
 
-> Upload your screenshots and replace these paths:
-
 ```md
-![a.png]
-![b.png]
-```
+![Visitor Dashboard](a.png)
+![Event Analytics](images/event_analyticsb
 
 ---
 
