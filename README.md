@@ -68,9 +68,8 @@ event_type, element_id, element_text, page_url, metadata
 
 ## 📸 Screenshots
 
-```md
 ![Visitor Dashboard](a.png)
-![Event Analytics](images/event_analyticsb
+![Event Analytics](b.png)
 
 ---
 
