@@ -1,0 +1,124 @@
+{% extends "analytics/base.html" %}
+
+{% block title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1><i class="bi bi-speedometer2"></i> Analytics Dashboard</h1>
+    <div class="time-filters">
+        <a href="?time_range=24h" class="btn btn-sm btn-outline-secondary {% if time_range == '24h' %}active{% endif %}">24h</a>
+        <a href="?time_range=7d" class="btn btn-sm btn-outline-secondary {% if time_range == '7d' %}active{% endif %}">7d</a>
+        <a href="?time_range=30d" class="btn btn-sm btn-outline-secondary {% if time_range == '30d' %}active{% endif %}">30d</a>
+        <a href="?time_range=all" class="btn btn-sm btn-outline-secondary {% if time_range == 'all' %}active{% endif %}">All Time</a>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    {% include "analytics/_summary_cards.html" %}
+</div>
+
+<div class="row">
+    <!-- Visitors Chart -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5><i class="bi bi-people"></i> Visitors</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="visitorsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Chart -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5><i class="bi bi-activity"></i> Events</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Visitors -->
+    <div class="col-md-6 mb-4">
+        {% include "analytics/_visitors_table.html" %}
+    </div>
+
+    <!-- Recent Events -->
+    <div class="col-md-6 mb-4">
+        {% include "analytics/_events_table.html" %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Initialize charts
+document.addEventListener('DOMContentLoaded', function() {
+    // Visitors Chart
+    const visitorsCtx = document.getElementById('visitorsChart').getContext('2d');
+    const visitorsChart = new Chart(visitorsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Visitors',
+                data: [12, 19, 3, 5, 2, 3, 15],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Events Chart
+    const eventsCtx = document.getElementById('eventsChart').getContext('2d');
+    const eventsChart = new Chart(eventsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Clicks', 'Downloads', 'Form Submits', 'External Links'],
+            datasets: [{
+                label: 'Events',
+                data: [12, 19, 3, 5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

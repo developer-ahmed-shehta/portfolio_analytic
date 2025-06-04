@@ -1,0 +1,77 @@
+<div class="col-md-3 mb-4">
+    <div class="card summary-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h6 class="card-title">Total Visitors</h6>
+                    <h3 class="card-value">{{ total_visitors }}</h3>
+                </div>
+                <div class="icon-circle bg-primary">
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+            <p class="card-trend text-success">
+                <i class="bi bi-arrow-up"></i> 12% from last week
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3 mb-4">
+    <div class="card summary-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h6 class="card-title">Unique Visitors</h6>
+                    <h3 class="card-value">{{ unique_visitors }}</h3>
+                </div>
+                <div class="icon-circle bg-success">
+                    <i class="bi bi-person-check"></i>
+                </div>
+            </div>
+            <p class="card-trend text-success">
+                <i class="bi bi-arrow-up"></i> 8% from last week
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3 mb-4">
+    <div class="card summary-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h6 class="card-title">Page Views</h6>
+                    <h3 class="card-value">{{ total_page_views }}</h3>
+                </div>
+                <div class="icon-circle bg-info">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+            </div>
+            <p class="card-trend text-danger">
+                <i class="bi bi-arrow-down"></i> 3% from last week
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3 mb-4">
+    <div class="card summary-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h6 class="card-title">Avg. Duration</h6>
+                    <h3 class="card-value">
+                        {{ avg_session_duration|floatformat:1 }}s
+                    </h3>
+                </div>
+                <div class="icon-circle bg-warning">
+                    <i class="bi bi-clock"></i>
+                </div>
+            </div>
+            <p class="card-trend text-success">
+                <i class="bi bi-arrow-up"></i> 15% from last week
+            </p>
+        </div>
+    </div>
+</div>

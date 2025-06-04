@@ -1,0 +1,40 @@
+<div class="card h-100">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5><i class="bi bi-people"></i> Recent Visitors</h5>
+        <a href="#visitors" class="btn btn-sm btn-outline-primary">View All</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>IP Address</th>
+                        <th>Device</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visitor in recent_visitors %}
+                    <tr>
+                        <td>{{ visitor.timestamp|timesince }} ago</td>
+                        <td>{{ visitor.ip_address }}</td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                {{ visitor.device_type }}
+                            </span>
+                        </td>
+                        <td>{{ visitor.country|default:"Unknown" }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

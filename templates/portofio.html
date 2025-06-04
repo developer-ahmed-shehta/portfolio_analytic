@@ -1,0 +1,440 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Shehta | DevOps & Backend Engineer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-track="nav_brand">Ahmed Shehta</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" data-track="nav_toggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about" data-track="nav_about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience" data-track="nav_experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects" data-track="nav_projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills" data-track="nav_skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" data-track="nav_contact">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="{% url 'download_cv' %}" class="btn btn-primary ms-2" download data-track="nav_resume_download">
+                            <i class="bi bi-download"></i> Resume
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero gradient-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content animate-fade-in">
+                    <h4 class="hero-subtitle">Hi, my name is</h4>
+                    <h1 class="hero-title">Ahmed Shehta.</h1>
+                    <h2 class="hero-subtitle">I build efficient backend systems.</h2>
+                    <p class="hero-description">
+                        I'm a DevOps and Backend Engineer specializing in building scalable infrastructure,
+                        optimizing performance, and reducing costs. Currently focused on designing
+                        robust APIs and automating deployment processes.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#projects" class="btn btn-primary" data-track="hero_view_projects">View My Projects</a>
+                        <a href="#contact" class="btn btn-outline-light" data-track="hero_contact_me">Contact Me</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="code-block animate-slide-up">
+                        <span class="code-line"><span class="code-comment"># Infrastructure as Code</span></span>
+                        <span class="code-line"><span class="code-keyword">def</span> <span class="code-function">deploy_infrastructure</span>():</span>
+                        <span class="code-line">    <span class="code-comment"># Reduced hosting costs by 85%</span></span>
+                        <span class="code-line">    migrate_to_vps(<span class="code-string">'azure'</span>, <span class="code-string">'hostinger'</span>)</span>
+                        <span class="code-line">    </span>
+                        <span class="code-line">    <span class="code-comment"># Optimized server performance</span></span>
+                        <span class="code-line">    separate_database(<span class="code-string">'postgresql'</span>)</span>
+                        <span class="code-line">    </span>
+                        <span class="code-line">    <span class="code-comment"># Automated CI/CD pipelines</span></span>
+                        <span class="code-line">    setup_cicd(<span class="code-string">'github-actions'</span>)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">About Me</h2>
+            <div class="row">
+                <div class="col-lg-6 animate-fade-in">
+                    <p>
+                        I'm a DevOps and Backend Engineer with 2 years of experience in deploying and developing web applications,
+                        designing RESTful APIs, and managing cloud infrastructure. I'm passionate about creating efficient systems
+                        that scale gracefully while keeping costs under control.
+                    </p>
+                    <p>
+                        My expertise includes containerization with Docker, CI/CD pipeline setup, and Python automation.
+                        I've successfully reduced hosting costs by over 85% through strategic infrastructure migration
+                        and optimization.
+                    </p>
+                    <p>
+                        When I'm not coding, you can find me solving algorithmic problems on LeetCode or exploring new
+                        technologies to add to my toolkit.
+                    </p>
+                    <div class="mt-4">
+                        <a href="#contact" class="btn btn-primary me-3" data-track="about_get_in_touch">Get In Touch</a>
+                        <a href="{% static "../media/Ahmed Shehta CV.pdf" %}" class="btn btn-outline-light" download data-track="about_resume_download">
+                            <i class="bi bi-download"></i> Download CV
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="stats-grid animate-slide-up">
+                        <div class="stat-item" data-track="stat_cost_reduction">
+                            <div class="stat-number">85%</div>
+                            <div class="stat-label">Cost Reduction</div>
+                            <small>From $87 to $10/month</small>
+                        </div>
+                        <div class="stat-item" data-track="stat_performance_gain">
+                            <div class="stat-number">40%</div>
+                            <div class="stat-label">Performance Gain</div>
+                            <small>Automated reporting</small>
+                        </div>
+                        <div class="stat-item" data-track="stat_load_decrease">
+                            <div class="stat-number">50%</div>
+                            <div class="stat-label">Load Decrease</div>
+                            <small>Database separation</small>
+                        </div>
+                        <div class="stat-item" data-track="stat_problems_solved">
+                            <div class="stat-number">300+</div>
+                            <div class="stat-label">Problems Solved</div>
+                            <small>LeetCode & HackerRank</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Where I've Worked</h2>
+            <div class="experience-timeline animate-slide-up">
+                <div class="experience-item" data-track="experience_tatbeek">
+                    <div class="experience-date">2024</div>
+                    <div class="experience-content">
+                        <h3 class="experience-title">Backend Developer</h3>
+                        <span class="experience-company">@ Tatbeek | Hybrid | Egypt</span>
+                        <p class="experience-description">
+                            As a DevOps and Backend Engineer, I've contributed to building scalable infrastructure and backend systems
+                            that streamline deployment and optimize cost efficiency.
+                        </p>
+                        <ul class="experience-details">
+                            <li>Built and maintained virtual machines for scalable deployment environments</li>
+                            <li>Deployed and managed web applications through optimized CI/CD pipelines</li>
+                            <li>Utilized Docker for containerization, ensuring consistent environments</li>
+                            <li>Migrated hosting from Azure to Hostinger, reducing costs by 85%</li>
+                            <li>Separated database from application server, reducing server load by 50%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item" data-track="experience_freelance">
+                    <div class="experience-date">2023</div>
+                    <div class="experience-content">
+                        <h3 class="experience-title">Freelance Developer</h3>
+                        <span class="experience-company">Self-Employed | Remote</span>
+                        <p class="experience-description">
+                            Worked on various projects for clients, developing web applications and APIs while managing deployment and infrastructure.
+                        </p>
+                        <ul class="experience-details">
+                            <li>Developed custom web applications using Flask and Django</li>
+                            <li>Implemented RESTful APIs for mobile applications</li>
+                            <li>Configured Linux servers for production deployments</li>
+                            <li>Optimized database queries for improved performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Some Things I've Built</h2>
+            <div class="projects-grid">
+                <div class="project-card animate-slide-up" style="animation-delay: 0.1s" data-track="project_flask_deployment">
+                    <h3 class="project-title">Seamless Flask Deployment</h3>
+                    <p class="project-description">
+                        Developed a Flask application with CI/CD using GitHub Actions, uWSGI, and Nginx.
+                        Configured production-ready deployment for high performance and reliability.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                        <span class="tech-tag">Azure VM</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/developer-ahmed-shehta" class="project-link" target="_blank" data-track="project_github_flask">
+                            <i class="bi bi-github"></i> View Code
+                        </a>
+                        <a href="#" class="project-link" target="_blank" data-track="project_demo_flask">
+                            <i class="bi bi-box-arrow-up-right"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card animate-slide-up" style="animation-delay: 0.2s" data-track="project_ecommerce">
+                    <h3 class="project-title">E-Commerce Application</h3>
+                    <p class="project-description">
+                        Web application for product transactions with authentication and complex relational
+                        database structure using SQLAlchemy ORM.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQLAlchemy</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/developer-ahmed-shehta" class="project-link" target="_blank" data-track="project_github_ecommerce">
+                            <i class="bi bi-github"></i> View Code
+                        </a>
+                        <a href="#" class="project-link" target="_blank" data-track="project_demo_ecommerce">
+                            <i class="bi bi-box-arrow-up-right"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card animate-slide-up" style="animation-delay: 0.3s" data-track="project_news_app">
+                    <h3 class="project-title">News Paper Web App</h3>
+                    <p class="project-description">
+                        News web application using Django with article management, comments, user accounts,
+                        and admin dashboard.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">Class-Based Views</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/developer-ahmed-shehta" class="project-link" target="_blank" data-track="project_github_news">
+                            <i class="bi bi-github"></i> View Code
+                        </a>
+                        <a href="#" class="project-link" target="_blank" data-track="project_demo_news">
+                            <i class="bi bi-box-arrow-up-right"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card animate-slide-up" style="animation-delay: 0.4s" data-track="project_reporting">
+                    <h3 class="project-title">Automated Reporting System</h3>
+                    <p class="project-description">
+                        Python script that automatically generates and emails reports by querying databases
+                        and compiling data into PDF and Excel formats.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">ReportLab</span>
+                        <span class="tech-tag">SMTP</span>
+                        <span class="tech-tag">Cron</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/developer-ahmed-shehta" class="project-link" target="_blank" data-track="project_github_reporting">
+                            <i class="bi bi-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5 animate-fade-in">
+                <a href="https://github.com/developer-ahmed-shehta" class="btn btn-primary" target="_blank" data-track="view_more_projects">
+                    <i class="bi bi-github"></i> View More Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">My Skills</h2>
+            <div class="skills-container animate-slide-up">
+                <div class="skill-category" data-track="skills_languages">
+                    <h4 class="skill-category-title"><i class="bi bi-code-slash"></i> Languages</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">Python (Advanced)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Java (Advanced)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">JavaScript (Intermediate)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Bash Scripting</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-track="skills_frameworks">
+                    <h4 class="skill-category-title"><i class="bi bi-layers"></i> Frameworks & Tools</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">Flask</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Django</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Docker</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Git/GitHub</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">SQLAlchemy</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-track="skills_databases">
+                    <h4 class="skill-category-title"><i class="bi bi-database"></i> Databases</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">PostgreSQL</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 87%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">MySQL</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">MongoDB</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Azure Cosmos DB</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-track="skills_platforms">
+                    <h4 class="skill-category-title"><i class="bi bi-cloud"></i> Platforms</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">Azure Cloud</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 83%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Ubuntu Server</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Nginx</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 82%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">CI/CD Pipelines</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Linux Administration</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 84%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <p class="text-center mb-5 animate-fade-in" style="max-width: 600px; margin: 0 auto;">
+                        Hey! I'd love to hear what you think about my work <br>got a sec to leave a quick message?
+                    </p>
+                    <div class="contact-form animate-slide-up">
+                        <form id="contactForm" data-track="contact_form_submit">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required data-track="contact_name_field">
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required data-track="contact_message_field"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitBtn" data-track="contact_submit_button">
+                                <span id="submitText">Send Message</span>
+                                <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/ahmedshehta/" class="social-icon" target="_blank" data-track="footer_linkedin"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/developer-ahmed-shehta" class="social-icon" target="_blank" data-track="footer_github"><i class="bi bi-github"></i></a>
+                <a href="https://www.hackerrank.com/profile/ahmedshehta0123" class="social-icon" target="_blank" data-track="footer_hackerrank"><i class="bi bi-code-square"></i></a>
+                <a href="mailto:ahmedshehta0123@gmail.com" class="social-icon" data-track="footer_email"><i class="bi bi-envelope"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#about" class="footer-link" data-track="footer_about">About</a>
+                <a href="#experience" class="footer-link" data-track="footer_experience">Experience</a>
+                <a href="#projects" class="footer-link" data-track="footer_projects">Projects</a>
+                <a href="#skills" class="footer-link" data-track="footer_skills">Skills</a>
+                <a href="#contact" class="footer-link" data-track="footer_contact">Contact</a>
+            </div>
+            <p class="footer-copyright">
+                Designed & Built by Ahmed Shehta &copy; <span id="currentYear"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#about" class="back-to-top" id="backToTop" data-track="back_to_top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/analytics.js' %}"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+
+
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/event-tracking.js' %}"></script>
+</body>
+</html>
