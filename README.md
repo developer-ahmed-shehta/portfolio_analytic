@@ -93,25 +93,3 @@ python manage.py migrate
 # Run the server
 python manage.py runserver
 ```
-
----
-
-## 📡 Optional: Tracking Script Integration
-
-To track users in real-time, embed a custom JavaScript snippet into your site that sends events and page views to the backend. *(Feature coming soon)*
-
----
-
-## 🧪 Development Notes
-
-- Uses Django’s `auto_now_add` and `auto_now` for timestamps
-- Optimized with database indexes on `event_type` and `timestamp`
-- Handles anonymous and authenticated users
-- Can be extended with heatmaps, funnels, or dashboards
-
----
-
-## 📬 Contact
-
-- GitHub: [@developer-ahmed-shehta](https://github.com/developer-ahmed-shehta)
-- Issues & PRs welcome!
