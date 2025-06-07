@@ -1,3 +1,4 @@
+import requests
 from django.utils import timezone
 from .models import Visitor, PageView
 import user_agents
@@ -52,17 +53,21 @@ class AnalyticsMiddleware:
             visitor.save()
 
         # Track page view
-        PageView.objects.create(
+        page_view = PageView.objects.create(
             visitor=visitor,
             url=request.build_absolute_uri()[:200],
             referrer=request.META.get('HTTP_REFERER', '')[:200]
         )
 
+        # Store the page view ID and start time in session for duration calculation
+        request.session['current_page_view_id'] = page_view.id
+        request.session['page_view_start'] = timezone.now().isoformat()
+
         response = self.get_response(request)
         return response
 
     def should_track(self, request):
-        excluded_paths = ['/admin/', '/static/', '/media/', '/analytic/']
+        excluded_paths = ['/admin/', '/static/', '/media/', '/analytics','/analytic']
         return not any(request.path.startswith(path) for path in excluded_paths)
 
     def get_client_ip(self, request):
@@ -81,11 +86,13 @@ class AnalyticsMiddleware:
         return 'other'
 
     def get_country(self, request):
-        """
-        Implement country detection based on IP
-        Options:
-        1. Use a geoip database (like GeoLite2)
-        2. Use a third-party API
-        3. Return None if not implemented
-        """
-        return None  # Implement your country detection logic here
+        ip = self.get_client_ip(request)
+        if not ip or ip == '127.0.0.1':
+            return None
+
+        try:
+            response = requests.get(f'http://ip-api.com/json/{ip}?fields=countryCode')
+            data = response.json()
+            return data.get('countryCode')
+        except:
+            return None

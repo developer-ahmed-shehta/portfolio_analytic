@@ -37,10 +37,27 @@ function trackEvent(eventType, elementId, elementClass, elementText, metadata) {
         body: JSON.stringify({
             event_type: eventType,
             page_url: window.location.href,
-            elementId:elementId,
-            elementClass:elementClass,
-            elementText:elementText,
+            elementId: elementId,
+            elementClass: elementClass,
+            elementText: elementText,
             metadata: metadata
         })
     }).catch(error => console.error('Error tracking event:', error));
 }
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+

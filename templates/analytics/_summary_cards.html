@@ -1,77 +1,88 @@
-<div class="col-md-3 mb-4">
-    <div class="card summary-card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h6 class="card-title">Total Visitors</h6>
-                    <h3 class="card-value">{{ total_visitors }}</h3>
+<div class="row">
+    <!-- Total Visitors Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card summary-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Total Visitors</h6>
+                        <h3 class="card-value">{{ total_visitors }}</h3>
+                    </div>
+                    <div class="icon-circle bg-primary">
+                        <i class="bi bi-people"></i>
+                    </div>
                 </div>
-                <div class="icon-circle bg-primary">
-                    <i class="bi bi-people"></i>
-                </div>
+{#                <p class="card-trend text-success">#}
+{#                    <i class="bi bi-arrow-up"></i>#}
+{#                    {% if time_range == '24h' %}Today{% else %}This period{% endif %}#}
+{#                </p>#}
             </div>
-            <p class="card-trend text-success">
-                <i class="bi bi-arrow-up"></i> 12% from last week
-            </p>
         </div>
     </div>
-</div>
 
-<div class="col-md-3 mb-4">
-    <div class="card summary-card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h6 class="card-title">Unique Visitors</h6>
-                    <h3 class="card-value">{{ unique_visitors }}</h3>
+    <!-- Page Views Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card summary-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Page Views</h6>
+                        <h3 class="card-value">{{ total_page_views }}</h3>
+                    </div>
+                    <div class="icon-circle bg-info">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
                 </div>
-                <div class="icon-circle bg-success">
-                    <i class="bi bi-person-check"></i>
-                </div>
+{#                <p class="card-trend {% if total_page_views > previous_period.total_page_views %}text-success{% else %}text-danger{% endif %}">#}
+{#                    <i class="bi bi-arrow-{% if total_page_views > previous_period.total_page_views %}up{% else %}down{% endif %}"></i>#}
+{#                    {{ total_page_views }}%#}
+{#                </p>#}
             </div>
-            <p class="card-trend text-success">
-                <i class="bi bi-arrow-up"></i> 8% from last week
-            </p>
         </div>
     </div>
-</div>
 
-<div class="col-md-3 mb-4">
-    <div class="card summary-card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h6 class="card-title">Page Views</h6>
-                    <h3 class="card-value">{{ total_page_views }}</h3>
+    <!-- Events Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card summary-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Total Events</h6>
+                        <h3 class="card-value">{{ total_events }}</h3>
+                    </div>
+                    <div class="icon-circle bg-purple">
+                        <i class="bi bi-activity"></i>
+                    </div>
                 </div>
-                <div class="icon-circle bg-info">
-                    <i class="bi bi-file-earmark-text"></i>
-                </div>
+{#                <p class="card-trend {% if total_events > previous_period.total_events %}text-success{% else %}text-danger{% endif %}">#}
+{#                    <i class="bi bi-arrow-{% if total_events > previous_period.total_events %}up{% else %}down{% endif %}"></i>#}
+{#                    {{ total_events }}%#}
+{#                </p>#}
             </div>
-            <p class="card-trend text-danger">
-                <i class="bi bi-arrow-down"></i> 3% from last week
-            </p>
         </div>
     </div>
-</div>
 
-<div class="col-md-3 mb-4">
-    <div class="card summary-card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h6 class="card-title">Avg. Duration</h6>
-                    <h3 class="card-value">
-                        {{ avg_session_duration|floatformat:1 }}s
-                    </h3>
+    <!-- Avg. Duration Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card summary-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Avg. Duration</h6>
+                        <h3 class="card-value">
+                            {{ avg_session_duration|floatformat:1 }}s
+                        </h3>
+                    </div>
+                    <div class="icon-circle bg-warning">
+                        <i class="bi bi-clock"></i>
+                    </div>
                 </div>
-                <div class="icon-circle bg-warning">
-                    <i class="bi bi-clock"></i>
-                </div>
+{#                <p class="card-trend {% if avg_session_duration > previous_period.avg_session_duration %}text-success{% else %}text-danger{% endif %}">#}
+{#                    <i class="bi bi-arrow-{% if avg_session_duration > previous_period.avg_session_duration %}up{% else %}down{% endif %}"></i>#}
+{#                    {{ avg_session_duration }}%#}
+{#                </p>#}
             </div>
-            <p class="card-trend text-success">
-                <i class="bi bi-arrow-up"></i> 15% from last week
-            </p>
         </div>
     </div>
+
 </div>

@@ -19,8 +19,8 @@
                     <tr>
                         <td>{{ event.timestamp|timesince }} ago</td>
                         <td>
-                            <span class="badge bg-{{ event.get_badge_color }}">
-                                {{ event.get_event_type_display }}
+                            <span>
+                                {{ event.event_type }}
                             </span>
                         </td>
                         <td>

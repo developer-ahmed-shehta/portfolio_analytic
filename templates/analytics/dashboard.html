@@ -2,6 +2,7 @@
 
 {% block title %}Analytics Dashboard{% endblock %}
 
+
 {% block content %}
 <div class="dashboard-header">
     <h1><i class="bi bi-speedometer2"></i> Analytics Dashboard</h1>
@@ -55,13 +56,11 @@
         {% include "analytics/_events_table.html" %}
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
+
 <script>
-// Initialize charts
 document.addEventListener('DOMContentLoaded', function() {
-    // Visitors Chart
+    // Visitors Chart (unchanged)
     const visitorsCtx = document.getElementById('visitorsChart').getContext('2d');
     const visitorsChart = new Chart(visitorsCtx, {
         type: 'line',
@@ -81,44 +80,65 @@ document.addEventListener('DOMContentLoaded', function() {
             scales: {
                 y: {
                     beginAtZero: true
+                    
                 }
             }
         }
     });
 
-    // Events Chart
+   // Events Chart
     const eventsCtx = document.getElementById('eventsChart').getContext('2d');
-    const eventsChart = new Chart(eventsCtx, {
+    
+    new Chart(eventsCtx, {
         type: 'bar',
         data: {
-            labels: ['Clicks', 'Downloads', 'Form Submits', 'External Links'],
+            labels: ['Navigation', 'Form Interactions', 'Project Views', 'Resume Downloads'],
             datasets: [{
-                label: 'Events',
-                data: [12, 19, 3, 5],
+                label: 'User Actions',
+                data: [
+                    {{ event_counts.nav_events }},
+                    {{ event_counts.form_events }},
+                    {{ event_counts.project_events }},
+                    {{ event_counts.download_events }}
+                ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    'rgba(54, 162, 235, 0.7)',  // Blue
+                    'rgba(75, 192, 192, 0.7)',   // Teal
+                    'rgba(255, 159, 64, 0.7)',   // Orange
+                    'rgba(153, 102, 255, 0.7)'   // Purple
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(153, 102, 255, 1)'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}`;
+                        }
+                    }
+                }
+            },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
                 }
             }
         }
     });
+    
 });
 </script>
+
+
 {% endblock %}
