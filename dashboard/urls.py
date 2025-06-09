@@ -7,4 +7,7 @@ urlpatterns = [
     path('analytics/update-duration/', views.update_page_view_duration, name='update_page_view_duration'),
 
     path('analytic/', views.analytics_dashboard),
+
+    path('visitors/<int:pk>/', views.VisitorDetailView.as_view(), name='visitor_detail'),
+
 ]

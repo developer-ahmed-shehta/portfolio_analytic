@@ -1,0 +1,249 @@
+{% extends "analytics/base.html" %}
+
+{% block title %} Visitor Details - {{ visitor.ip_address }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-person-badge"></i> Visitor Details
+        </h1>
+        <a href="{% url 'analytics_dashboard' %}" class="btn btn-sm btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Visitor Info Card -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Visitor Information</h6>
+            <span class="badge bg-info text-dark">
+                First seen: {{ visitor.timestamp|date:"M d, Y H:i" }}
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>IP Address:</strong> {{ visitor.ip_address }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Location:</strong> 
+                            {{ visitor.country|default:"Unknown" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Device:</strong> 
+                            {{ visitor.device_type|default:"Unknown" }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Browser:</strong> 
+                            {{ visitor.browser|default:"Unknown" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>OS:</strong> 
+                            {{ visitor.os|default:"Unknown" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Last Activity:</strong> 
+                            {{ visitor.last_seen|timesince }} ago
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <h6>Initial Visit Details</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Landing Page:</strong> 
+                            <a href="{{ visitor.landing_page }}" target="_blank">
+                                {{ visitor.landing_page|truncatechars:50 }}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Referrer:</strong> 
+                            {% if visitor.referrer %}
+                                <a href="{{ visitor.referrer }}" target="_blank">
+                                    {{ visitor.referrer|truncatechars:50 }}
+                                </a>
+                            {% else %}
+                                Direct traffic
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Summary Card -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Page Views
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ page_views.count }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-file-earmark-text fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Events
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ events.count }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-activity fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Time Spent
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ total_duration }} seconds
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-clock-history fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Views Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="bi bi-file-earmark-text"></i> Page Views
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Page</th>
+                            <th>Duration</th>
+                            <th>Referrer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pv in page_views %}
+                        <tr>
+                            <td>{{ pv.timestamp|date:"M d, Y H:i" }}</td>
+                            <td>
+                                <a href="{{ pv.url }}" target="_blank">
+                                    {{ pv.url|truncatechars:50 }}
+                                </a>
+                            </td>
+                            <td>
+                                {% if pv.duration %}
+                                    {{ pv.duration|floatformat:2 }}s
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if pv.referrer %}
+                                    <a href="{{ pv.referrer }}" target="_blank">
+                                        {{ pv.referrer|truncatechars:30 }}
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No page views recorded</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="bi bi-activity"></i> Events
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Page</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td>{{ event.timestamp|date:"M d, Y H:i" }}</td>
+                            <td>{{ event.event_type }}</td>
+                            <td>
+                                <a href="{{ event.page_url }}" target="_blank">
+                                    {{ event.page_url|truncatechars:30 }}
+                                </a>
+                            </td>
+                            <td>
+                                {% if event.element_id %}ID: {{ event.element_id }}{% endif %}
+                                {% if event.element_class %}Class: {{ event.element_class }}{% endif %}
+                                {% if event.element_text %}Text: {{ event.element_text|truncatechars:30 }}{% endif %}
+                                {% if event.metadata %}{{ event.metadata }}{% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No events recorded</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

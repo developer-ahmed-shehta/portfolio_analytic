@@ -6,6 +6,9 @@ from django.db.models import Count, Avg, F, Q
 from django.utils import timezone
 from datetime import timedelta
 import json
+
+from django.views.generic import DetailView
+
 from .models import Visitor, PageView, Event
 
 from django.utils import timezone
@@ -179,3 +182,28 @@ def update_page_view_duration(request):
         except (ValueError, KeyError, json.JSONDecodeError) as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+class VisitorDetailView(DetailView):
+    model = Visitor
+    template_name = 'analytics/visitor_detail.html'
+    context_object_name = 'visitor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        visitor = self.object
+
+        # Get all page views for this visitor, ordered by timestamp
+        context['page_views'] = PageView.objects.filter(visitor=visitor).order_by('-timestamp')
+
+        # Get all events for this visitor, ordered by timestamp
+        context['events'] = Event.objects.filter(visitor=visitor).order_by('-timestamp')
+
+        # Calculate total time spent
+        total_duration = sum(
+            pv.duration for pv in context['page_views']
+            if pv.duration is not None
+        )
+        context['total_duration'] = round(total_duration, 2) if total_duration else 0
+
+        return context

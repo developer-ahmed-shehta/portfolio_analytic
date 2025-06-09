@@ -11,7 +11,7 @@
                         <th>Time</th>
                         <th>IP Address</th>
                         <th>Device</th>
-                        <th>Location</th>
+                        <th>Last Seen</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -25,10 +25,11 @@
                                 {{ visitor.device_type }}
                             </span>
                         </td>
-                        <td>{{ visitor.country|default:"Unknown" }}</td>
+                        <td>{{ visitor.last_seen|timesince }} ago</td>
                         <td>
                             <button class="btn btn-sm btn-outline-info">
-                                <i class="bi bi-eye"></i>
+                                
+                                <a href="{% url 'visitor_detail' visitor.pk %}"><i class="bi bi-eye"></i></a>
                             </button>
                         </td>
                     </tr>
