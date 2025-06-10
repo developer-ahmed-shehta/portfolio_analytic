@@ -198,8 +198,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # For TLS
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ahmedshehta0123@gmail.com'  # Your Gmail address
-#EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
-EMAIL_HOST_PASSWORD = 'hbri gbrq jmwc agwa'
+EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
 DEFAULT_FROM_EMAIL = 'ahmedshehta0123@gmail.com'  # Same as EMAIL_HOST_USER
 
 # SSL Certificate
