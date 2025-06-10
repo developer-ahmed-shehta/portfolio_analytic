@@ -407,20 +407,22 @@
                         Hey! I'd love to hear what you think about my work <br>got a sec to leave a quick message?
                     </p>
                     <div class="contact-form animate-slide-up">
-                        <form id="contactForm" data-track="contact_form_submit">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required data-track="contact_name_field">
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required data-track="contact_message_field"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="submitBtn" data-track="contact_submit_button">
-                                <span id="submitText">Send Message</span>
-                                <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                            </button>
-                        </form>
+<form id="contactForm" data-track="contact_form_submit">
+    <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required data-track="contact_name_field">
+    </div>
+    <div class="form-group">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" name="message" rows="5" required data-track="contact_message_field"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submitBtn">
+        <span id="submitText">Send Message</span>
+        <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+    </button>
+</form>
+
+<div id="formMessage" class="mt-3" style="display:none;"></div>
                     </div>
                 </div>
             </div>

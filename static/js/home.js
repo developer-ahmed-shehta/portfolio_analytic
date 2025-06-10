@@ -2,9 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Initialize EmailJS with your User ID
-    emailjs.init('YOUR_EMAILJS_USER_ID'); // Replace with your actual EmailJS user ID
-
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -52,94 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             backToTopButton.classList.remove('active');
         }
     });
-
-    // Contact form submission with EmailJS
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitSpinner = document.getElementById('submitSpinner');
-
-            // Show loading state
-            submitText.textContent = 'Sending...';
-            submitSpinner.classList.remove('d-none');
-            submitBtn.disabled = true;
-
-            // Get the form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            // Send the email using EmailJS
-            emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', formData)
-                .then(function (response) {
-                    // Show success state
-                    submitText.textContent = 'Message Sent!';
-                    submitSpinner.classList.add('d-none');
-
-                    // Reset form
-                    contactForm.reset();
-
-                    // Show success message
-                    showAlert('Your message has been sent successfully!', 'success');
-
-                    // Reset button after delay
-                    setTimeout(function () {
-                        submitText.textContent = 'Send Message';
-                        submitBtn.disabled = false;
-                    }, 3000);
-                }, function (error) {
-                    // Show error state
-                    submitText.textContent = 'Error Sending';
-                    submitSpinner.classList.add('d-none');
-
-                    // Show error message
-                    showAlert('Failed to send message. Please try again later.', 'error');
-
-                    // Reset button after delay
-                    setTimeout(function () {
-                        submitText.textContent = 'Try Again';
-                        submitBtn.disabled = false;
-                    }, 3000);
-                });
-        });
-    }
-
-    // Function to show alert messages
-    function showAlert(message, type) {
-        // Remove any existing alerts
-        const existingAlert = document.querySelector('.custom-alert');
-        if (existingAlert) {
-            existingAlert.remove();
-        }
-
-        // Create alert element
-        const alertElement = document.createElement('div');
-        alertElement.className = `custom-alert alert-${type}`;
-        alertElement.textContent = message;
-
-        // Add to DOM
-        document.body.appendChild(alertElement);
-
-        // Show alert
-        setTimeout(() => {
-            alertElement.classList.add('show');
-        }, 10);
-
-        // Hide after 5 seconds
-        setTimeout(() => {
-            alertElement.classList.remove('show');
-            setTimeout(() => {
-                alertElement.remove();
-            }, 500);
-        }, 5000);
-    }
 
     // Animate elements when they come into view
     const animateOnScroll = function () {
@@ -208,48 +117,8 @@ document.addEventListener('DOMContentLoaded', function () {
     window.dispatchEvent(new Event('scroll'));
 });
 
-    document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("contactForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const submitText = document.getElementById("submitText");
-    const submitSpinner = document.getElementById("submitSpinner");
 
-    form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Simulate loading
-    submitText.textContent = "Sending...";
-    submitSpinner.classList.remove("d-none");
-    submitBtn.disabled = true;
-
-    setTimeout(() => {
-    alert("Thank you for your message! 😊");
-    form.reset();
-    submitText.textContent = "Send Message";
-    submitSpinner.classList.add("d-none");
-    submitBtn.disabled = false;
-}, 2000);
-});
-
-    // Optional: reveal animation when section enters viewport
-    const observer = new IntersectionObserver(
-    (entries) => {
-    entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-    entry.target.classList.add("animated");
-    observer.unobserve(entry.target);
-}
-});
-},
-{threshold: 0.1}
-    );
-
-    document.querySelectorAll(".animate-fade-in, .animate-slide-up").forEach((el) =>
-    observer.observe(el)
-    );
-});
-
-      document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const contact = document.getElementById("contact");
 
     function revealContactSection() {
@@ -269,3 +138,80 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener("scroll", revealContactSection);
   });
+
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitSpinner = document.getElementById('submitSpinner');
+    const formMessage = document.getElementById('formMessage');
+
+    // Get form data
+    const formData = {
+        name: document.getElementById('name').value,
+        message: document.getElementById('message').value
+    };
+
+    // Show loading state
+    submitText.textContent = 'Sending...';
+    submitSpinner.classList.remove('d-none');
+    submitBtn.disabled = true;
+    formMessage.style.display = 'none'; // Hide previous messages
+
+    // Send data to server
+    fetch('/send_message/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        formMessage.style.display = 'block';
+
+        if (data.status === 'success') {
+            formMessage.className = 'mt-3 alert alert-success';
+            formMessage.textContent = data.message || 'Message sent successfully!';
+            form.reset();
+        } else {
+            formMessage.className = 'mt-3 alert alert-danger';
+            formMessage.textContent = data.message || 'Error sending message. Please try again.';
+        }
+    })
+    .catch(error => {
+        formMessage.style.display = 'block';
+        formMessage.className = 'mt-3 alert alert-danger';
+        formMessage.textContent = 'An error occurred. Please try again.';
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        // Reset button state
+        submitText.textContent = 'Send Message';
+        submitSpinner.classList.add('d-none');
+        submitBtn.disabled = false;
+
+        // Scroll to message
+        formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+});
+
+// CSRF token function remains the same
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

@@ -9,8 +9,44 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+
+# settings.py (very top)
+import ssl
+import warnings
+
+warnings.warn(
+    "Disabling VERIFY_X509_STRICT and VERIFY_X509_PARTIAL_CHAIN in create_default_context().\n"
+    "This reverts Python 3.13's stricter SSL checks. Use only if you cannot fix your CA!"
+)
+
+_original_create_default_context = ssl.create_default_context
+
+
+def relaxed_create_default_context(
+        purpose=ssl.Purpose.SERVER_AUTH,
+        *,
+        cafile=None,
+        capath=None,
+        cadata=None
+):
+    ctx = _original_create_default_context(purpose=purpose, cafile=cafile, capath=capath, cadata=cadata)
+
+    if hasattr(ssl, "VERIFY_X509_STRICT"):
+        ctx.verify_flags = ctx.verify_flags & ~ssl.VERIFY_X509_STRICT
+    if hasattr(ssl, "VERIFY_X509_PARTIAL_CHAIN"):
+        ctx.verify_flags = ctx.verify_flags & ~ssl.VERIFY_X509_PARTIAL_CHAIN
+
+    return ctx
+
+
+ssl.create_default_context = relaxed_create_default_context
+
+
 import os
+
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +59,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n$-8faa8^e#&kcif^z5*jenqlf791fv27wm%u4b64xw8(kc8yj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # production
+DEBUG = True # production
 
 ALLOWED_HOSTS = []
 
@@ -127,7 +163,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # or os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -152,6 +188,23 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # production
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-insecure-key-for-dev-only') # production
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # production
+#SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-insecure-key-for-dev-only') # production
+
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # For TLS
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ahmedshehta0123@gmail.com'  # Your Gmail address
+#EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
+EMAIL_HOST_PASSWORD = 'hbri gbrq jmwc agwa'
+DEFAULT_FROM_EMAIL = 'ahmedshehta0123@gmail.com'  # Same as EMAIL_HOST_USER
+
+# SSL Certificate
+import ssl
+import certifi
+
+EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
