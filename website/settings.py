@@ -59,7 +59,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # production
+DEBUG = False # production
 
 ALLOWED_HOSTS = []
 
@@ -163,7 +163,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # or os.path.join(BASE_DIR, 'static')
 ]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -188,7 +188,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # production
 #SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-insecure-key-for-dev-only') # production
 
 
@@ -199,6 +199,8 @@ EMAIL_PORT = 587  # For TLS
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ahmedshehta0123@gmail.com'  # Your Gmail address
 EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
+print(os.getenv('GMAIL_APP_PASSWORD'))
+#EMAIL_HOST_PASSWORD= 'gqci wvwm vkwr auwm'
 DEFAULT_FROM_EMAIL = 'ahmedshehta0123@gmail.com'  # Same as EMAIL_HOST_USER
 
 # SSL Certificate
