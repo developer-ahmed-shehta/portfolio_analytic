@@ -367,8 +367,9 @@ a:hover {
     top: 0;
     width: 60px;
     height: 60px;
+    background-color: white;
+
     border-radius: 50%;
-    background-color: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -378,7 +379,7 @@ a:hover {
 }
 
 .experience-content {
-    background-color: var(--card-bg);
+    background-color: white;
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid rgba(100, 255, 218, 0.1);
@@ -788,4 +789,50 @@ footer {
         bottom: 1rem;
         right: 1rem;
     }
+}
+/* Profile Image */
+.profile-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: center top;
+    border: 5px solid white;
+    transition: transform 0.3s ease;
+}
+
+/* Emoji Reaction */
+.emoji-reaction {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 2rem;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Cursor Blink */
+.cursor-blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Pulse Animation */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* LinkedIn Button Hover Effect */
+#linkedin-cta:hover span:nth-child(2) {
+    margin-right: 5px;
+    transition: all 0.3s ease;
 }

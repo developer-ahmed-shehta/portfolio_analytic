@@ -59,10 +59,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # production
+DEBUG = True # production
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
 
 # Application definition
 
@@ -163,7 +164,6 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # or os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -186,10 +186,6 @@ def get_location(ip):
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # production
-#SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-insecure-key-for-dev-only') # production
 
 
 # Email settings

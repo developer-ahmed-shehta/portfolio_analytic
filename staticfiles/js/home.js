@@ -215,3 +215,56 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
+// Typewriter effect
+const phrases = ["I'd love to hear from you...", "Let's build something amazing!", "Ask me anything!"];
+let currentPhrase = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typingSpeed = 100;
+const pauseBetween = 2000;
+
+function typeWriter() {
+    const textElement = document.getElementById('typing-text');
+    const fullText = phrases[currentPhrase];
+
+    if (isDeleting) {
+        textElement.textContent = fullText.substring(0, charIndex--);
+    } else {
+        textElement.textContent = fullText.substring(0, charIndex++);
+    }
+
+    if (!isDeleting && charIndex === fullText.length) {
+        isDeleting = true;
+        setTimeout(typeWriter, pauseBetween);
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+        setTimeout(typeWriter, typingSpeed);
+    } else {
+        setTimeout(typeWriter, isDeleting ? typingSpeed/2 : typingSpeed);
+    }
+}
+
+// Wave animation
+function startWave() {
+    const img = document.getElementById('wave-on-hover');
+    const emoji = document.getElementById('emoji-hi');
+    img.style.transform = 'rotate(-5deg)';
+    emoji.style.opacity = '1';
+    emoji.style.transform = 'translateY(-10px)';
+}
+
+function stopWave() {
+    const img = document.getElementById('wave-on-hover');
+    const emoji = document.getElementById('emoji-hi');
+    img.style.transform = 'rotate(0deg)';
+    emoji.style.opacity = '0';
+    emoji.style.transform = 'translateY(0)';
+}
+
+// Start animations when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    typeWriter();
+});
